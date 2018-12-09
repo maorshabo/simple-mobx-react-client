@@ -6,9 +6,18 @@ import { Link } from 'react-router-dom';
 class Footer extends React.Component {
   render() {
     return (
-      <div className="container">
-        Footer
-      </div>
+      <footer className="fixed-bottom">
+        <div className="container">
+          <div className="row">
+            <div className="col-6">
+              <Link to="/categories">Categories</Link>
+            </div>
+            <div className="col-6">
+              <Link to="/locations">Locations</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     );
   }
 }

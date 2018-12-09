@@ -1,12 +1,13 @@
-import { action, computed, observable } from 'mobx-react';
+import { action, computed, observable } from 'mobx';
 import CrudStore from './crudStore';
 import API from '../utils/API';
+import Category from '../models/Category';
 
 export default class CategoriesStore extends CrudStore {
   @observable selectedItems = observable.array();
 
   constructor() {
-    super(API.categories);
+    super(API.categories, Category);
   }
 
   @computed

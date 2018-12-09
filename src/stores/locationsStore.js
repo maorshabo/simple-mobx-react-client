@@ -1,12 +1,13 @@
-import { action, observable } from 'mobx-react';
+import { action, observable } from 'mobx';
 import CrudStore from './crudStore';
 import API from '../utils/API';
+import Location from '../models/Location';
 
 export default class LocationsStore extends CrudStore {
   @observable selectedItems = {};
 
   constructor() {
-    super(API.locations);
+    super(API.locations, Location);
   }
 
   @action

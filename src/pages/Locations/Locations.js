@@ -1,21 +1,26 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import stores from '../../stores';
+
+const { commonStore } = stores;
 
 class Locations extends Component {
-    constructor(props){
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render(){
-        return (
-            <div>
-              Location
-            </div>
-        );
-    }
+  componentDidMount() {
+    commonStore.setTitle('Location');
+  }
+
+  render() {
+    return (
+      <div>
+        Location
+      </div>
+    );
+  }
 }
 
-Locations.propTypes = {
-};
+Locations.propTypes = {};
 
 export default Locations;
