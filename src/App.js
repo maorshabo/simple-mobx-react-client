@@ -5,7 +5,7 @@ import Categories from './pages/Categories/Categories';
 import Locations from './pages/Locations/Locations';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import EditSidebar from './components/EditSidebar/EditSidebar';
+import { Redirect } from 'react-router';
 
 @withRouter
 @observer
@@ -17,6 +17,7 @@ class App extends Component {
         <Switch>
           <Route path="/categories" component={Categories} />
           <Route path="/locations" component={Locations} />
+          <Redirect from="/" to="categories" />
         </Switch>
         <Footer />
       </div>
