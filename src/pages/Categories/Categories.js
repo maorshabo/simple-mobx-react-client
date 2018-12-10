@@ -17,25 +17,55 @@ class Categories extends Component {
   }
 
   componentDidMount() {
+    commonStore.hideEditForm();
     commonStore.setTitle('Categories');
+    commonStore.setHeaderActions({
+      delete: categoriesStore.deleteSelected.bind(categoriesStore)
+    });
     categoriesStore.getAll();
   }
 
+  onItemSelected = (item) => {
+    categoriesStore.itemSelected(item)
+  };
+
+  onEditItem = (item, event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    categoriesStore.editItem(item);
+  };
+
+  renderEmptyState = () => {
+    if (Object.keys(categoriesStore.list).length === 0) {
+      return <li className="list-group-item">
+        <h3>It's empty here....</h3>
+      </li>
+    }
+    return null;
+  };
+
+  addItem = () => {
+    categoriesStore.editItem(undefined);
+    commonStore.showEditForm();
+  };
+
   render() {
+    const emptyState = this.renderEmptyState();
+    const selectedCategory = categoriesStore.currentItem;
     return (
-      <div className="container">
-        Categories
+      <div className="container mt-5">
         <ul className="list-group list-group-flush">
+          {emptyState}
           {categoriesStore.list.map((category) => (
             <li className="list-group-item" key={category.id}>
-              <ListRow title={category.name} />
+              <ListRow title={category.name} isSelected={categoriesStore.selectedItems.has(category.id)} onClick={this.onItemSelected.bind(this, category)} onEdit={this.onEditItem.bind(this, category)} />
             </li>
           ))}
         </ul>
         <EditSidebar isShown={commonStore.isEditFormShown}>
-          <EditCategory category={categoriesStore.selectedItems[0]} />
+          <EditCategory category={selectedCategory} />
         </EditSidebar>
-        <Fab onClick={commonStore.showEditForm} />
+        <Fab onClick={this.addItem} />
       </div>
     );
   }

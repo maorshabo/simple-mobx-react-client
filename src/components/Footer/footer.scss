@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+
+.footer {
+  height: 40px;
+  background: $primaryColor;
+  padding: 10px;
+
+  a {
+    color: $secondaryColor;
+
+    &:hover {
+      color: darken($secondaryColor, 5%);
+      text-decoration: none;
+    }
+  }
+}

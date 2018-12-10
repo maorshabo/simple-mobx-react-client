@@ -4,9 +4,9 @@ import CommonStore from './commonStore';
 
 class Stores {
   constructor() {
-    this.categoriesStore = new CategoriesStore();
-    this.locationsStore = new LocationsStore();
-    this.commonStore = new CommonStore();
+    this.categoriesStore = new CategoriesStore(this);
+    this.locationsStore = new LocationsStore(this);
+    this.commonStore = new CommonStore(this);
   }
 }
 

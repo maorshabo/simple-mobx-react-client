@@ -1,0 +1,14 @@
+@import '../../styles/variables';
+
+.card {
+  transition: 0.3s ease all;
+}
+.card.selected {
+  background-color: lighten($primaryColor, 0.4);
+  background-clip: border-box;
+  border-radius: 0.25rem;
+
+  .card-body {
+    color: $secondaryColor;
+  }
+}

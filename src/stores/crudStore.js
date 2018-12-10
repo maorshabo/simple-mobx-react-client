@@ -17,6 +17,14 @@ class CrudStore {
   }
 
   @action
+  getById(id) {
+    if (id) {
+      return this.list.find(item => item.id === id);
+    }
+    return null;
+  }
+
+  @action
   create(object) {
     this.isLoading = true;
     const response = this.api.create(object);

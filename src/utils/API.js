@@ -10,9 +10,9 @@ class CrudAPI {
     return `${this.prefix}.${id}`;
   }
 
-  formatObject(object) {
+  formatObject(object, id) {
     try {
-      return JSON.stringify(object);
+      return JSON.stringify({...object, id});
     } catch (e) {
       console.error(e);
       return '';
@@ -30,7 +30,7 @@ class CrudAPI {
 
   create(object) {
     const id = uuid();
-    LocalStorage.setItem(this.generateKey(id), this.formatObject(object));
+    LocalStorage.setItem(this.generateKey(id), this.formatObject(object, id));
     return {
       id,
       ...object
@@ -51,12 +51,12 @@ class CrudAPI {
     const storedItem = this.parseObject(LocalStorage.getItem(this.generateKey(id)));
     return {
       id,
-      storedItem
+      ...storedItem
     }
   }
 
   update(id, object) {
-    LocalStorage.setItem(this.generateKey(id), this.formatObject(object));
+    LocalStorage.setItem(this.generateKey(id), this.formatObject(object, id));
     return this.getById(id);
   }
 

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './editSidebar.scss';
+import stores from '../../stores';
+
+const { commonStore } = stores;
 
 class EditSidebar extends Component {
   constructor(props) {
@@ -16,7 +19,9 @@ class EditSidebar extends Component {
     return (
       <div className={classname}>
         <div className="sidebar-header">
-          <h2>Edit Sidebar</h2>
+          <h2>
+            Edit Sidebar
+            <i className="fa fa-remove pull-right mr-4" onClick={commonStore.hideEditForm} /></h2>
         </div>
         <div className="sidebar-body">
           {this.props.children}

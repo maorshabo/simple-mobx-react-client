@@ -9,7 +9,7 @@ const { categoriesStore, commonStore } = stores;
 class EditCategory extends PureComponent {
   onSubmitForm = (formValues) => {
     if (formValues.id) {
-      categoriesStore.update(formValues.id, formValues);
+      categoriesStore.update(formValues);
     }
     else {
       categoriesStore.create(formValues);
@@ -39,7 +39,7 @@ class EditCategory extends PureComponent {
                         <Error name="name" />
                       </div>
                     </div>
-                    <button type="submit" disabled={submitting || pristine} className="btn btn-primary btn-block">
+                    <button type="submit" disabled={submitting || pristine} className="btn btn-primary btn-block mt-3">
                       Save
                     </button>
                   </div>

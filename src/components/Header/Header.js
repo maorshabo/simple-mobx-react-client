@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import './header.scss';
 
 import stores from '../../stores';
 
@@ -11,14 +11,13 @@ class Header extends React.Component {
   render() {
     return (
       <nav className="navbar fixed-top navbar-light bg-primary">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-2">{commonStore.title}</div>
-            <div className="col-sm-2"></div>
-            <div className="col-sm-2"></div>
-            <div className="col-sm-2"></div>
+          <div className="col-4 pull-left">{commonStore.title}</div>
+          {commonStore.selectedCount > 0 && (
+          <div className="col-8 pull-right text-right">
+            <span>{commonStore.selectedCount} Selected</span>
+            <span className="ml-2"><i className="fa fa-trash" onClick={commonStore.deleteSelected}/></span>
           </div>
-        </div>
+          )}
       </nav>
     );
   }

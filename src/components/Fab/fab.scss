@@ -1,12 +1,21 @@
+$fabBottom: 50px;
+
 .fab {
   position: fixed;
   width: 60px;
   height: 60px;
-  bottom: 40px;
+  bottom: $fabBottom;
   right: 40px;
   background-color: #0C9;
   color: #FFF;
   border-radius: 50px;
   text-align: center;
   box-shadow: 2px 2px 3px #999;
+  padding-top:16px;
+  transition: 0.3s ease all;
+
+  &:hover {
+    bottom: $fabBottom + 5;
+    box-shadow: 2px 4px 6px #999;
+  }
 }

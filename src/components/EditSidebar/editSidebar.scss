@@ -30,3 +30,9 @@ $sidebarWidth: 500px;
     transform: translateX(0);
   }
 }
+
+@media (max-width: 769px) {
+  .sidebar {
+    width: 100%;
+  }
+}
