@@ -12,9 +12,9 @@ function ListRow(props) {
     <div className={className}>
       <div className="card-body" onClick={props.onClick}>
         <div className="row">
-            <div className="col-8 text-left">
-              <h5 className="text-left">{props.title}</h5>
-              <sub className="text-left">{props.subTitle}</sub>
+            <div className="col-8">
+              <h5>{props.title}</h5>
+              <sub>{props.subTitle}</sub>
               {props.extra && <p>Category: {props.extra}</p>}
             </div>
             <div className="col-4 text-right">

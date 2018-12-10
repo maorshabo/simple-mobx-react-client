@@ -5,6 +5,7 @@ import Location from '../models/Location';
 
 export default class LocationsStore extends CrudStore {
   @observable selectedItems = observable.map();
+  @observable isGrouped = false;
 
   constructor(stores) {
     super(API.locations, Location);
@@ -17,6 +18,14 @@ export default class LocationsStore extends CrudStore {
       (size) => callback(this.selectedItems)
     )
   }
+
+  @action
+  filterByCategory = (categoryId) => {
+    this.getAll();
+    if (categoryId) {
+      this.list.replace(this.list.filter(location => location.category === categoryId));
+    }
+  };
 
   @action
   deleteSelected = () => {
@@ -50,5 +59,10 @@ export default class LocationsStore extends CrudStore {
   editItem = (item) => {
     this.currentItem = item;
     this.stores.commonStore.showEditForm();
+  };
+
+  @action
+  toggleGrouped = () => {
+    this.isGrouped = !this.isGrouped;
   }
 }

@@ -17,6 +17,11 @@ class CrudStore {
   }
 
   @action
+  filterBy = (predicate) => {
+    return this.list.filter(predicate);
+  };
+
+  @action
   getById(id) {
     if (id) {
       return this.list.find(item => item.id === id);

@@ -11,7 +11,7 @@ class Header extends React.Component {
   render() {
     return (
       <nav className="navbar fixed-top navbar-light bg-primary">
-          <div className="col-4 pull-left">{commonStore.title}</div>
+          <h3 className="col-4 pull-left">{commonStore.title}</h3>
           {commonStore.selectedCount > 0 && (
           <div className="col-8 pull-right text-right">
             <span>{commonStore.selectedCount} Selected</span>

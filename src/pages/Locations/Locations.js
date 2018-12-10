@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import stores from '../../stores';
-import ListRow from '../../components/ListRow/ListRow';
 import EditSidebar from '../../components/EditSidebar/EditSidebar';
 import Fab from '../../components/Fab/Fab';
 import EditLocation from './LocationsComponents/EditLocation';
 import { withRouter } from 'react-router';
 import { observer } from 'mobx-react';
+import Filters from './LocationsComponents/Filters';
+import GroupedByCategory from './LocationsComponents/GroupedByCategory';
+import LocationsList from './LocationsComponents/LocationsList';
+import classnames from 'classnames';
 
 const { locationsStore, commonStore, categoriesStore } = stores;
 
@@ -30,15 +33,6 @@ class Locations extends Component {
     locationsStore.itemSelected(item)
   };
 
-  renderEmptyState = () => {
-    if (Object.keys(locationsStore.list).length === 0) {
-      return <li className="list-group-item">
-        <h3>It's empty here....</h3>
-      </li>
-    }
-    return null;
-  };
-
   onEditItem = (item, event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -46,22 +40,30 @@ class Locations extends Component {
   };
 
   render() {
-    const emptyState = this.renderEmptyState();
     const selectedLocation = locationsStore.currentItem;
+    const buttonClasses = classnames({
+      btn: true,
+      ['btn-outline-primary']: !locationsStore.isGrouped,
+      ['btn-primary']: locationsStore.isGrouped
+    });
     return (
       <div className="container mt-5">
-        <ul className="list-group list-group-flush">
-          {emptyState}
-          {locationsStore.list.map((location) => {
-            const category = categoriesStore.getById(location.category);
-            const categoryName = category && category.name || '';
-            return (
-              <li className="list-group-item" key={location.id}>
-                <ListRow title={location.name} onEdit={this.onEditItem.bind(this, location)} extra={categoryName} subTitle={location.address} isSelected={locationsStore.selectedItems.has(location.id)} onClick={this.onItemSelected.bind(this, location)} />
-              </li>
-            )
-          })}
-        </ul>
+        <div className="actions mb-3">
+          <div className="row">
+            <div className="col-sm-6">
+              <Filters />
+            </div>
+            <div className="col-sm-6 d-flex justify-content-end align-items-end">
+              <button className={buttonClasses} onClick={locationsStore.toggleGrouped}>Group by category</button>
+            </div>
+          </div>
+        </div>
+        {locationsStore.isGrouped ?
+          (<GroupedByCategory selectedItems={locationsStore.selectedItems} list={locationsStore.list}
+                              onEdit={this.onEditItem} onClick={this.onItemSelected} />) :
+          (<LocationsList selectedItems={locationsStore.selectedItems} list={locationsStore.list}
+                          onEdit={this.onEditItem} onClick={this.onItemSelected} />)
+        }
         <EditSidebar isShown={commonStore.isEditFormShown}>
           <EditLocation categories={categoriesStore.dropdownOptions} location={selectedLocation} />
         </EditSidebar>

@@ -1,8 +1,11 @@
 @import './variables';
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
+body {
+  padding-bottom: 100px;
+}
 .App {
-  text-align: center;
+  padding-top: 50px;
 }
 
 .App-logo {

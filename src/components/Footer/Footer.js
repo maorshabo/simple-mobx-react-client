@@ -10,11 +10,11 @@ class Footer extends React.Component {
       <footer className="footer fixed-bottom">
         <div className="container">
           <div className="row">
-            <div className="col-6">
-              <Link to="/categories">Categories</Link>
+            <div className="col-6 text-center">
+              <Link to="/categories"><i className="fa fa-tags" /> Categories</Link>
             </div>
-            <div className="col-6">
-              <Link to="/locations">Locations</Link>
+            <div className="col-6 text-center">
+              <Link to="/locations"><i className="fa fa-map" /> Locations</Link>
             </div>
           </div>
         </div>
