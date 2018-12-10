@@ -23,10 +23,14 @@ class Categories extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         Categories
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">{categoriesStore.list.map((category) => <ListRow title={category.name} key={category.id}/> )}</li>
+          {categoriesStore.list.map((category) => (
+            <li className="list-group-item" key={category.id}>
+              <ListRow title={category.name} />
+            </li>
+          ))}
         </ul>
         <EditSidebar isShown={commonStore.isEditFormShown}>
           <EditCategory category={categoriesStore.selectedItems[0]} />

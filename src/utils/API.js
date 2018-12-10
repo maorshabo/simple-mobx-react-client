@@ -10,9 +10,27 @@ class CrudAPI {
     return `${this.prefix}.${id}`;
   }
 
+  formatObject(object) {
+    try {
+      return JSON.stringify(object);
+    } catch (e) {
+      console.error(e);
+      return '';
+    }
+  }
+
+  parseObject(object) {
+    try {
+      return JSON.parse(object);
+    } catch (e) {
+      console.error(e);
+      return {};
+    }
+  }
+
   create(object) {
     const id = uuid();
-    LocalStorage.setItem(this.generateKey(id), object);
+    LocalStorage.setItem(this.generateKey(id), this.formatObject(object));
     return {
       id,
       ...object
@@ -23,14 +41,14 @@ class CrudAPI {
     const results = [];
     for(let i = 0; i < LocalStorage.length; ++i) {
       if (LocalStorage.key(i).indexOf(this.prefix) === 0) {
-        results.push(LocalStorage.getItem(LocalStorage.key(i)));
+        results.push(this.parseObject(LocalStorage.getItem(LocalStorage.key(i))));
       }
     }
     return results;
   }
 
   getById(id) {
-    const storedItem = LocalStorage.getItem(this.generateKey(id));
+    const storedItem = this.parseObject(LocalStorage.getItem(this.generateKey(id)));
     return {
       id,
       storedItem
@@ -38,7 +56,7 @@ class CrudAPI {
   }
 
   update(id, object) {
-    LocalStorage.setItem(this.generateKey(id), object);
+    LocalStorage.setItem(this.generateKey(id), this.formatObject(object));
     return this.getById(id);
   }
 

@@ -4,7 +4,7 @@ import React from 'react';
 function ListRow(props) {
   return (
     <div className="card">
-      <div className="card-body" onClick={this.props.onClick}>
+      <div className="card-body" onClick={props.onClick}>
         <h5>{props.title}</h5>
         <sub>{props.subTitle}</sub>
       </div>

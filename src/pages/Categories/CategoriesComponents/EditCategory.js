@@ -4,7 +4,7 @@ import { Field, Form } from 'react-final-form';
 import Error from '../../../components/Error/Error';
 import stores from '../../../stores';
 
-const { categoriesStore } = stores;
+const { categoriesStore, commonStore } = stores;
 
 class EditCategory extends PureComponent {
   onSubmitForm = (formValues) => {
@@ -14,6 +14,7 @@ class EditCategory extends PureComponent {
     else {
       categoriesStore.create(formValues);
     }
+    commonStore.hideEditForm();
   };
 
   validateForm = (values) => {
@@ -29,17 +30,19 @@ class EditCategory extends PureComponent {
       <Form onSubmit={this.onSubmitForm} validate={this.validateForm} initialValues={this.props.category}
             render={({ handleSubmit, form, submitting, pristine, values }) => {
               return (
-                <form onSubmit={handleSubmit} id="form1">
-                  <div className="row">
-                    <div className="col">Name:</div>
-                    <div className="col">
-                      <Field name="name" component="input" type="text" />
-                      <Error name="name" />
+                <form onSubmit={handleSubmit}>
+                  <div className="container">
+                    <div className="row">
+                      <div className="col-4">Name:</div>
+                      <div className="col-8">
+                        <Field name="name" className="form-control" component="input" type="text" />
+                        <Error name="name" />
+                      </div>
                     </div>
+                    <button type="submit" disabled={submitting || pristine} className="btn btn-primary btn-block">
+                      Save
+                    </button>
                   </div>
-                  <button type="submit" disabled={submitting || pristine} className="btn btn-primary">
-                    Save
-                  </button>
                 </form>
               )
             }} />
